@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css?family=Sofia");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f7f7f7;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #24323d;
+    height: auto;
+    width: 380px;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px;
+}
+.title {
+    font-size: 28px;
+    color: #da70d6;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    position: relative;
+    text-align: center;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+}
+.row_1 label {
+    position: relative;
+}
+.row_1 label input{
+    width: 159%;
+    padding: 10px 10px 20px 10px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+
+.row_1 label input + span {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    color: #24323d;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+}
+
+.row_1 label input:placeholder-shown + span {
+    top: 15px;
+    font-size: 0.9em;
+}
+
+.row_1 label input:focus + span,
+.row_1 label input:valid + span{
+    top: 30px;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+.row_1 label input:valid +span{
+    color: #da70d6;
+}
+
+.row_2 label {
+    position: relative;
+}
+.row_2 label input{
+    width: 159%;
+    padding: 10px 10px 20px 10px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+
+.row_2 label input + span {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    color: #24323d;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+}
+
+.row_2 label input:placeholder-shown + span {
+    top: 15px;
+    font-size: 0.9em;
+}
+
+.row_2 label input:focus + span,
+.row_2 label input:valid + span{
+    top: 30px;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+.row_2 label input:valid +span{
+    color: #da70d6;
+}
+
+.button {
+    border: none;
+    outline: none;
+    text-align: center;
+    background: #da70d6;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    transform: 0.3s ease;
+    cursor: pointer;
+}
+.button:hover {
+    background: #e0b0ff;
+    transition: 0.3s;
+}
+.message, .create{
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+}
+
+.create a{
+    color: #da70d6;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.create a:hover{
+    color: #e0b0ff;
+}

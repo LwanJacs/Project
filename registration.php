@@ -54,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
     <link rel="stylesheet" href="style.css">
     <title>Registration</title>
 </head>
-<body class="bg-light">
+<body>
     <form method="post" class="form">
     <div class="title">
         <h5>Create Your Account</h5>
@@ -85,7 +85,7 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
         <button class="submit">Create Account</button>
         <p class="signin">
                 Already have an account?
-                <a href="#">Signin</a>
+                <a href="./login.php">Signin</a>
         </p>
         
 
