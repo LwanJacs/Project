@@ -1,7 +1,8 @@
 <?php
-include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database';
+include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
 $message = "";
 $toastClass = "";
+
 if($_SERVER["REQUEST_METHOD"] =="POST"){
     $fname = $_POST['first_name'];
     $lname = $_POST['last_name'];
@@ -32,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
             $message = "Account created successfully";
             $toastClass = "#28a745";
         } else {
-            $message = "Error: " .$stmt->error;
+            $message = "Error ";
             $toastClass = "#dc3545";
         }
 
@@ -48,11 +49,48 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Registration</title>
 </head>
-<body>
+<body class="bg-light">
+    <form method="post" class="form">
+    <div class="title">
+        <h5>Create Your Account</h5>
+    </div>
+    <div class="form-group">
+        <label>
+            <input type="text" name="first_name" required>      
+            <!---this for a float labeling effect to create a clean animation.-->
+            <span>Firstname</span>
+        </label>
+        <label>
+            <input type="text" name="last_name" required>
+            <span>Lastname</span>
+        </label>
+    </div>
+        <label>
+            <input type="text" name="username" required>
+            <span>Username</span>
+        </label>
+        <label>
+            <input type="email" name="email" required>
+            <span>Email</span>
+        </label>
+        <label>
+            <input type="password" name="password" required>
+            <span>Password</span>
+        </label>
+        <button class="submit">Create Account</button>
+        <p class="signin">
+                Already have an account?
+                <a href="#">Signin</a>
+        </p>
+        
+
+        
+    </form>
     
 </body>
 </html>
