@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(password_verify($password, $db_password)){
             $message = "Login successful";
             $toastClass = "bg-success";
-            //Start the session and rediret to the dashboard or home page
+            //Start the session and rediret to the dashboard or homepage
             session_start();
             $_SESSION['email'] = $email;
             header("Location: dashboard.php");
