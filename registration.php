@@ -55,6 +55,12 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
     <title>Registration</title>
 </head>
 <body>
+    <?php if ($message): ?>
+        <div class="toast" style="background-color: <?php echo $toastClass; ?>;">
+            <span><?php echo $message; ?></span> <!-- inserts message-->
+            <button onclick="closeToast()">X</button><!-- inserts color-->
+        </div>
+    <?php endif; ?>
     <form method="post" class="form">
     <div class="title">
         <h5>Create Your Account</h5>
