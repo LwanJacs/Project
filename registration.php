@@ -62,6 +62,11 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
         </div>
     <?php endif; ?>
     <form method="post" class="form">
+
+    <button type="button" 
+    class="btn-close btn-close-white custom-close-btn close-form-btn"
+    aria-label="Close"></button>
+
     <div class="title">
         <h5>Create Your Account</h5>
     </div>
@@ -94,9 +99,7 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
                 <a href="./login.php">Signin</a>
         </p>
         
-
-        
     </form>
-    
+<script src="close_btn.js"></script>
 </body>
 </html>

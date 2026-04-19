@@ -19,16 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->fetch();
 
         if(password_verify($password, $db_password)){
-            $message = "Login successful";
-            $toastClass = "bg-success";
             //Start the session and rediret to the dashboard or homepage
             session_start();
             $_SESSION['email'] = $email;
+
+            $_SESSION['message'] = "Login successful";
+            $_SESSION['toastClass'] = "bg-success";
+
             header("Location: dashboard.php");
             exit();
         } else {
-            $message = "Incorrect password";
-            $toastClass = "bg-danger";
+            $_SESSION['message'] = "Incorrect password";
+            $_SESSION['toastClass'] = "bg-danger";
         } 
     } else {
         $message = "Email not found";
