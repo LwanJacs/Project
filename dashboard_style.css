@@ -13,7 +13,7 @@ body {
 
 .custom-navbar .navbar-brand {
     color: #da70d6 !important;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .custom-navbar .btn-logout {
@@ -27,8 +27,29 @@ body {
     background: #e0b0ff;
 }
 
+.nav-link {
+    color: white !important;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #da70d6 !important;
+    text-decoration: underline;
+}
+
+.btn-outline-light {
+    border-color: #da70d6;
+    color: #da70d6;
+}
+
+.btn-outline-light:hover {
+    background: #da70d6;
+    color: white;
+}
+
+
 /* Dashboard container */
-.dashborad-box {
+.dashboard-box {
     background: #24323d;
     color: white;
     width: 400px;
@@ -40,6 +61,6 @@ body {
 }
 
 /* Heading */
-.dashborad-box h2 {
+.dashboard-box h2 {
     color: #da70d6;
 }
