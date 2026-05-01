@@ -62,16 +62,20 @@ if (isset($_SESSION['message'])) {
                     <li class="nav-item">
                         <a class="nav-link" href="browse.php">Browse</a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Search</a>
-                    </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="#">Become a Seller</a>
                     </li>
 
                 </ul>
+                
+                <!--Search bar-->
+                <form class="d-flex me-3" action="search.php" method="GET">
+                    <input class="form-control me-2" type="search" name="query"
+                        placeholder="Search products..." aria-label="Search" value="<?= htmlspecialchars($query) ?>">
+                    <button class="btn btn-outline-light" type="submit">Search</button>        
+                </form>
+
+                <!-- Account and Logout buttons -->
                 <div class="d-flex my-2 my-lg-0">
                     <a href="dashboard.php" class="btn btn-outline-light me-2">Account</a>
 
