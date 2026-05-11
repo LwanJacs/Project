@@ -1,7 +1,35 @@
 <?php 
 include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
+// Fetches from the db 
+$sql = "SELECT * FROM products WHERE 1=1";
 
-$result = $conn->query("SELECT * FROM products ORDER BY created_at DESC");
+// Adding filters
+if (!empty($_GET['search'])) {
+    // 
+    $search = $conn->real_escape_string($_GET['search']);
+    $sql .= "AND name LIKE '%$search%'";
+}
+
+// 
+if (!empty($_GET['category'])) {
+    $category = $conn->real_escape_string($_GET['category']);
+    $sql .= "AND category = '$category'";
+}
+
+if (!empty($_GET['max_price'])) {
+    $price = (int) $_GET['max_price'];
+    $sql .= " AND price <= $price";
+}
+
+$sort = $_GET['sort'] ?? 'newest';
+
+if ($sort === 'cheapest') {
+    $sql .= " ORDER BY price ASC";
+} else {
+    $sql .= " ORDER BY created_at DESC";
+}
+
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -18,11 +46,65 @@ $result = $conn->query("SELECT * FROM products ORDER BY created_at DESC");
 
 <body>
     <div class="container mt-4">
-        <h2>Browse Products</h2>
-        <div class="row g-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Browse Products</h2>
 
+            <form class="d-flex" method="GET" action="search.php">
+                <input class="form-control me-2" type="search" name="search" placeholder="Search...">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </form>
+        </div>
+
+        <form method="GET" class="filter-bar mb-4">
+            <div class="row g-2 align-items-end">
+
+            <!-- Search -->
+             <div class="col-md-4">
+                <label class="form-label text-light">Search</label>
+                <input type="text" name="search" class="form-control"
+                       value="<?=  isset($GET['search']) ? htmlspecialchars($GET['search']) : '' ?>">
+             </div>
+
+            <!-- Category -->
+             <div class="col-md-2">
+                <label class="form-label text-light">Category</label>
+                <select name="category" class="form-control">
+                    <option value="">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="books">Books</option>
+                    <!-- Add category options here -->
+                </select>
+
+                <!-- Sort -->
+                <div class="col-md-2">
+                    <label class="form-label text-light">Sort By</label>
+                    <select name="sort"class="form-control">
+                        <option value="newest">Newest</option>
+                        <option value="cheapest">Cheapest</option>
+                    </select>
+                </div>
+
+                <!-- Price Range -->
+                <div class="col-md-2">
+                    <label class="form-label text-light">Max Price</label>
+                    <input type="number" name="max_price" class="form-control"
+                            placeholder="e.g. 500">
+                </div>
+
+                <!-- Filter button -->
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100">Apply Filters</button>
+                </div> 
+
+             </div>
+            </div>
+        </form>
+
+
+        <!-- Product Grid -->
         <?php while ($row = $result->fetch_assoc()): ?>
-            <div class="col-12 col-sm6 col-md-4 col-lg-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 
                 <div class="card product-card h-100">
                     <img src="<?=  $row['image'] ?>" class="card-img-top" alt="Product Image">
@@ -34,6 +116,10 @@ $result = $conn->query("SELECT * FROM products ORDER BY created_at DESC");
 
                         <p class="card-text small text-muted">
                             <?= substr($row['description'], 0, 60) ?>...
+                        </p>
+
+                        <p class="seller_name">
+                            Sold by: <?=  htmlspecialchars($row['seller_name'] ?? 'Unknown') ?>
                         </p>
 
                         <!-- Buttons -->
@@ -52,6 +138,8 @@ $result = $conn->query("SELECT * FROM products ORDER BY created_at DESC");
 
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     
 </body>
 </html>

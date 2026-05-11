@@ -38,7 +38,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
 
     // Update user to be a seller
-    
+    $update_stmt = $conn->prepare("UPDATE userdata SET is_seller = 1 WHERE id = ?");
+    $update_stmt->bind_param("i", $user_id);
+    $update_stmt->execute();
+
+    $_SESSION['message'] = "You are now registered as a seller!";
+    header("Location: dashboard.php");
+    exit(); 
+    } else {
+        $message = "Something went wrong. Please try again.";
+
     }
     }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Seller</title>
+</head>
+<body>
+    <form method="POST" action="form">
+
+        <h5>Become a Seller</h5>
+        
+        <!-- Store Name -->
+        <?php if ($message): ?>
+            <p class="text-danger text-center"><?= $message ?></p>
+        <?php endif; ?>
+
+        <label>
+            <input type="text" name="store_name" required>
+            <span>Store Name</span>
+        </label>
+
+        <label>
+            <input type="text" name="phone" required>
+            <span>Phone Number</span>
+        </label>
+
+        <label>
+            <input type="text" name="address" required>
+            <span>Address</span>
+        </label>
+
+        <button type="submit" class=button>Register as Seller</button>
+
+    </form>
+</body>
+</html>

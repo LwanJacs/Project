@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css?family=Sofia");
+
+body {
+    background: #1b1f24;
+    color: white;
+}
+
+.cart-box {
+    background: #24323d;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+.cart-item {
+    border-bottom: 1px solid #3a4b57;
+    padding: 15px 0;
+}
+
+.price {
+    color: #da70d6;
+    font-weight: bold;
+}
+
+ .btn-remove {
+    background: #dc3545;
+    color: white;
+    border: none;
+        }

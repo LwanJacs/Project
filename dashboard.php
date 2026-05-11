@@ -20,9 +20,8 @@ if (isset($_SESSION['message'])) {
 <html lang="en">
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/
-4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 <link rel = "stylesheet" href = "dashboard_style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,14 +46,7 @@ if (isset($_SESSION['message'])) {
     <nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
 
         <div class="container">
-            <a class="navbar-brand" href="#">Symphoinc Contracts</a>
-            <!--Mobile menu toggler-->
-            <button class="navbar-toggler d-lg-none" 
-                    type = "button" 
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand" href="#">Symphonic Contracts</a>
             <!--Navigation links-->
             <div class="collapse navbar-collapse" id="navMenu">
 
@@ -63,38 +55,113 @@ if (isset($_SESSION['message'])) {
                         <a class="nav-link" href="browse.php">Browse</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Become a Seller</a>
+                        <a class="nav-link" href="seller_register.php">Become a Seller</a>
                     </li>
-
                 </ul>
-                
                 <!--Search bar-->
-                <form class="d-flex me-3" action="search.php" method="GET">
-                    <input class="form-control me-2" type="search" name="query"
-                        placeholder="Search products..." aria-label="Search" value="<?= htmlspecialchars($query) ?>">
-                    <button class="btn btn-outline-light" type="submit">Search</button>        
+                <form class="search-form me-3" action="search.php" method="GET">
+                    <div class="search-box">
+                        <i class="fa fa-search"></i>
+                        <input type="search" name="query" placeholder="Search products..." value="">
+
+                        <button type="submit">Search</button>
+                    </div>
                 </form>
 
-                <!-- Account and Logout buttons -->
+                <!-- Account dropdown -->
                 <div class="d-flex my-2 my-lg-0">
-                    <a href="dashboard.php" class="btn btn-outline-light me-2">Account</a>
 
-                    <a href="./logout.php" class="btn btn-logout">logout</a>
+                    <div class="dropdown me-2">
+
+                        <button class="btn btn-outline-light dropdown-toggle" 
+                                type="button" 
+                                id="accountDropdown" 
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+
+                                <i class="fa fa-user"></i> Account
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end custom-dropdown"
+                            aria-labelledby="accountDropdown">
+                            <li>
+                                <a class="dropdown-item" hrf="profile.php">
+                                    <i class="fa fa-user-circle"></i> My Profile
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="orders.php">
+                                    <i class="fa fa-shopping-bag"></i> My Orders
+                                </a>
+                            </li>
+                             <li>
+                                <a class="dropdown-item" href="cart.php">
+                                    <i class="fa fa-shopping-cart"></i> Cart
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="messages.php">
+                                    <i class="fa fa-envelope"></i> Messages
+                                </a>
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text danger" href="logout.php">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+
+
     <div class="dashboard-box">
-        <h2>Welcome to the Dashboard<h2>
+        <h2>Welcome to the Dashboard</h2>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script> docuument.addEventListener("DOMContentLoaded", function() {
-    const toastEl = document.querySelector('.toast');
-    if (toastEl) {
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
-    }
-}); 
-</script>
+
+    <div class="container mt-5">
+    <!-- Welcome banner-->
+    <div class="dashboard-box mb-4">
+        <h2>Welcome back!</h2>
+        <p>Here to make a symphony.</p>
+    </div>
+
+    <!--Dashboard Cards-->
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <h4>Orders</h4>
+                <p>0 Active Orders</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <h4>Messages</h4>
+                <p>0 Unread Messages</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <h4>Balance</h4>
+                <p>R0.00</p>
+            </div>
+        </div>
+    
+    </div>
+    </div>
+
+    <footer class="dashboard-footer">
+    <p>© 2026 Symphonic Contracts. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
