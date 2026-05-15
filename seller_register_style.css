@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1b1f24;
+    padding: 20px;
+}
+
+.form {
+    width: 420px;
+    background: #24323d;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow:
+        rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/*Title*/
+.title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    color: #da70d6;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+label {
+    position: relative;
+    margin-bottom: 20px;
+    display: block;
+}
+
+label input {
+    width: 100%;
+    padding: 15px 10px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    background: #f4f4f4;
+    font-size: 15px;
+}
+
+/*Floating labels */
+
+label span {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    color: #24323d;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+    pointer-events: none;
+}
+
+/*
+
+/* Float animation */
+label input:focus + span,
+label input:valid + span {
+    top: -10px;
+    left: 8px;
+    font-size: 0.75em;
+    color: #da70d6;
+    background: #24323d;
+    padding: 0 5px;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    resize: none;
+}
+
+/*Seller register button*/
+.button {
+    border: none;
+    outline: none;
+    padding: 12px;
+    border-radius: 12px;
+    background: #da70d6;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.button:hover {
+    background: #e0b0ff;
+    transform: translateY(-2px);
+}
+
+/* Error message */
+.text-danger {
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .form {
+        width: 100%;
+    }
+}

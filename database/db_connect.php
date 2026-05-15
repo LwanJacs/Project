@@ -1,8 +1,9 @@
 <?php
+// Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "users";
+$dbname = "symphonicdb";
 
 //Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

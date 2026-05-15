@@ -1,10 +1,12 @@
 <?php 
 session_start();
-
+// Add product to cart
+include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
 $product_id = $_GET['cart'];
 
-// Add to cart logic
+// Initialize cart if it doesn't exist
 if (!isset($_SESSION['cart'])) {
+    // If cart doesn't exist, create it as an empty array
     $_SESSION['cart'] = [];
 }
 

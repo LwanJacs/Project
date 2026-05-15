@@ -5,24 +5,28 @@ $sql = "SELECT * FROM products WHERE 1=1";
 
 // Adding filters
 if (!empty($_GET['search'])) {
-    // 
+    // Prevent SQL injection
     $search = $conn->real_escape_string($_GET['search']);
     $sql .= "AND name LIKE '%$search%'";
 }
 
-// 
+// check if category filter is set and valid
 if (!empty($_GET['category'])) {
+    // validating category input to prevent SQL injection
     $category = $conn->real_escape_string($_GET['category']);
+    
     $sql .= "AND category = '$category'";
 }
-
+// check if max price filter is set and valid
 if (!empty($_GET['max_price'])) {
+    // validating max price input to prevent SQL injection
     $price = (int) $_GET['max_price'];
     $sql .= " AND price <= $price";
 }
 
+// Sorting
 $sort = $_GET['sort'] ?? 'newest';
-
+// default sorting is by newest, if 'cheapest' is selected, sort by price
 if ($sort === 'cheapest') {
     $sql .= " ORDER BY price ASC";
 } else {
@@ -105,10 +109,10 @@ $result = $conn->query($sql);
         <!-- Product Grid -->
         <?php while ($row = $result->fetch_assoc()): ?>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                
+                <!-- This is the product card, it displays the product image, name, price, description and seller name -->
                 <div class="card product-card h-100">
                     <img src="<?=  $row['image'] ?>" class="card-img-top" alt="Product Image">
-
+                    <!-- Card body with product details and buttons -->
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title"><?= $row['name'] ?></h5>
 
@@ -117,7 +121,7 @@ $result = $conn->query($sql);
                         <p class="card-text small text-muted">
                             <?= substr($row['description'], 0, 60) ?>...
                         </p>
-
+                        <!-- Display seller name, if available, otherwise show 'Unknown' -->
                         <p class="seller_name">
                             Sold by: <?=  htmlspecialchars($row['seller_name'] ?? 'Unknown') ?>
                         </p>
@@ -127,6 +131,7 @@ $result = $conn->query($sql);
                             <a href="product.php?id=<?=  $row['id'] ?>" class="btn btn-primary btn-sm w-100 mb-2">
                                 View Details
                             </a>
+                            <!-- Add to cart button, it links to add_to_cart.php with the product id as a parameter -->
                             <a href="add_to_cart.php?id=<?=  $row['id'] ?>" class="btn btn-success btn-sm w-100">
                                 Add to Cart
                             </a>

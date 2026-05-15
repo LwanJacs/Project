@@ -1,7 +1,7 @@
 <?php 
 session_start();
 include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
-
+// Fetch cart from session
 $cart = $_SESSION['cart'] ?? [];
 ?>
 
@@ -19,21 +19,25 @@ $cart = $_SESSION['cart'] ?? [];
         <h2 class="mt-4">Your Cart</h2>
 
         <div class="cart-box">
+            <!-- If cart is empty, show message, otherwise list items -->
             <?php if (empty($cart)): ?>
                 <p>Your cart is empty</p>
+                <!-- Link to browse products -->
+                <a href="browse.php" class="btn btn-primary mt-3">Browse Products</a>
             <?php else: ?>
+                <!-- Loop through cart items -->
                 <?php
                 $total = 0;
-
+                // Loop through cart items and fetch product details from database
                 foreach ($cart as $product_id => $qty):
-
+                    // Fetch product details from database
                     $result = $conn->query("SELECT * FROM products WHERE id = $product_id");
                     $product = $result->fetch_assoc();
-
+                    // Calculate subtotal for this item and add to total
                     $subtotal = $product['price'] * $qty;
                     $total += $subtotal;
                 ?>
-
+                <!-- Display cart item -->
                 <div class="cart-item d-flex justify-content-between aligh-items-center">
 
                     <div>

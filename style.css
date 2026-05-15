@@ -118,6 +118,7 @@ html, body {
     transition: 0.3s ease;
 }
 
+/* Float animation */
 .form label input:placeholder-shown + span{
     top: 15px;
     font-size: 0.9em;

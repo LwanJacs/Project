@@ -4,15 +4,15 @@ $message = "";
 $toastClass = "";
 
 if($_SERVER["REQUEST_METHOD"] =="POST"){
-    $fname = $_POST['first_name'];
-    $lname = $_POST['last_name'];
+    $fname = $_POST['name'];
+    $lname = $_POST['surname'];
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     //Check if email already exists
-    $checkEmailStmt = $conn->prepare("SELECT email FROM userdata WHERE email = ?");
+    $checkEmailStmt = $conn->prepare("SELECT email FROM users WHERE email = ?");
 
     $checkEmailStmt->bind_param("s", $email);
     $checkEmailStmt->execute();
@@ -23,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
         $toastClass = "#007bff"; 
     } else {
         //Prepare and bind
-        $stmt = $conn->prepare("INSERT INTO userdata (first_name, last_name, username, email, password)
+        $stmt = $conn->prepare("INSERT INTO users (name, surname, username, email, password)
         VALUES (?, ?, ?, ?, ?)");
         //Safely inserts data into the table with a prepared statement. 'sssss' means all the values are string.
         $stmt->bind_param("sssss", $fname, $lname, $username, $email, $hashedPassword);
@@ -72,13 +72,13 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
     </div>
     <div class="form-group">
         <label>
-            <input type="text" name="first_name" required>      
+            <input type="text" name="name" required>      
             <!---this for a float labeling effect to create a clean animation.-->
             <span>Firstname</span>
         </label>
         <label>
-            <input type="text" name="last_name" required>
-            <span>Lastname</span>
+            <input type="text" name="surname" required>
+            <span>Surname</span>
         </label>
     </div>
         <label>

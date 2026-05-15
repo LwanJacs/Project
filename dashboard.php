@@ -54,8 +54,19 @@ if (isset($_SESSION['message'])) {
                     <li class="nav-item">
                         <a class="nav-link" href="browse.php">Browse</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="seller_register.php">Become a Seller</a>
+                    <?php if (isset($_SESSION['is_seller']) && $_SESSION['is_seller']): ?>
+                        <!--Already a seller, show dashboard link-->
+                        <button class="nav-link btn" data-bs-toggle="modal" data-bs-target="#sellerModal">
+                            My Store
+                        </button>
+                    <?php else: ?>
+                        <!--Not a seller, show registration link-->
+                        <a class="nav-link" href="seller_register.php">
+                            Become a Seller
+                        </a>
+                    <?php endif; ?>
                     </li>
                 </ul>
                 <!--Search bar-->
@@ -156,6 +167,28 @@ if (isset($_SESSION['message'])) {
         </div>
     
     </div>
+    </div>
+
+    <div class="modal fade" id="sellerModal" tabindex="-1">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content custom-modal">
+
+                <div class="modal-header border-0">
+
+                    <h5 class="modal-title">Seller Dashboard</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <p>You are already registered as a seller!</p>
+                    <a href="seller_dashboard.php" class="btn btn-primary w-100">
+                        Go to My Store
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="dashboard-footer">
