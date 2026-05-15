@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css?family=Sofia");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    max-width: 900px;
+    margin: 60px auto;
+    background: #24323d;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.h1 {
+    color: #da70d6;
+    margin-bottom: 10px;
+}
+
+.dashboard-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.dashboard-btn {
+    background: #da70d6;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: 0.3s;
+} 
+
+.dashboard-btn:hover {
+    background: #e0b0ff;
+}
