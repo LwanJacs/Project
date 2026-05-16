@@ -9,28 +9,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     //Prepare and execute
-    $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT user_id, password, is_seller FROM users WHERE email = ?");
     $stmt ->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if($stmt->num_rows > 0) {
-        $stmt->bind_result($db_password);
+        $stmt->bind_result($user_id, $db_password, $is_seller);
         $stmt->fetch();
 
-        if(password_verify($password, $db_password)){
+        //If statement will run through the password verification process, 
+        //which checks if the password entered by the user matches 
+        //the hashed password stored in the db. 
+        //If the verification is successful, it starts a session and stores 
+        //the user's ID, email, and seller status in session variables. 
+        //It also sets a success message and redirects the user to the dashboard page. 
+        //If the verification fails, it sets an error message indicating that the password is incorrect.
+        if ($db_password !== null && password_verify($password, $db_password)) {
             //Start the session and rediret to the dashboard or homepage
             session_start();
+            $_SESSION['user_id'] = $user_id;
             $_SESSION['email'] = $email;
+            $_SESSION['is_seller'] = $is_seller;
 
-            $_SESSION['message'] = "Login successful";
-            $_SESSION['toastClass'] = "bg-success";
+            $_SESSION ['message'] = "Login successful";
+            $_SESSION ['toastClass'] = "bg-success";
 
             header("Location: dashboard.php");
             exit();
         } else {
-            $_SESSION['message'] = "Incorrect password";
-            $_SESSION['toastClass'] = "bg-danger";
+            $message = "Incorrect password";
+            $toastClass = "bg-danger";
         } 
     } else {
         $message = "Email not found";
@@ -56,6 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      <div class="row">
         <h5 class="title">Login Into Your Account</h5>
      </div>
+     <?php if ($message): ?>
+        <div class="alert <?= $toastClass ?> text-white text-center">
+            <?= htmlspecialchars($message) ?>
+        </div>
+    <?php endif; ?>
      <div class="row_1">
         <label>
             <input type="text" name="email" required>

@@ -22,7 +22,7 @@ $user_id = $user['user_id'];
 if($user['is_seller'] == 1) {
     $_SESSION['message'] = "You are already registered as a seller.";
 
-    header("Location: seller_login.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $update_stmt->execute();
 
     $_SESSION['message'] = "You are now registered as a seller!";
-    header("Location: seller_login.php");
+    header("Location: login.php");
     exit(); 
     } else {
         $message = "Something went wrong. Please try again.";
