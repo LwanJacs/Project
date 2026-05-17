@@ -7,7 +7,7 @@ $sql = "SELECT * FROM products WHERE 1=1";
 if (!empty($_GET['search'])) {
     // Prevent SQL injection
     $search = $conn->real_escape_string($_GET['search']);
-    $sql .= "AND name LIKE '%$search%'";
+    $sql .= "AND prod_name LIKE '%$search%'";
 }
 
 // check if category filter is set and valid
@@ -66,7 +66,7 @@ $result = $conn->query($sql);
              <div class="col-md-4">
                 <label class="form-label text-light">Search</label>
                 <input type="text" name="search" class="form-control"
-                       value="<?=  isset($GET['search']) ? htmlspecialchars($GET['search']) : '' ?>">
+                       value="<?=  isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
              </div>
 
             <!-- Category -->
@@ -111,15 +111,15 @@ $result = $conn->query($sql);
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <!-- This is the product card, it displays the product image, name, price, description and seller name -->
                 <div class="card product-card h-100">
-                    <img src="<?=  $row['image'] ?>" class="card-img-top" alt="Product Image">
+                    <img src="uploads/<?=  htmlspecialchars($row['image']) ?>" class="card-img-top" alt="Product Image">
                     <!-- Card body with product details and buttons -->
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title"><?= $row['name'] ?></h5>
+                        <h5 class="card-title"><?= htmlspecialchars($row['prod_name']) ?></h5>
 
-                        <p class="price">R<?= $row['price'] ?></p>
+                        <p class="price">R<?= htmlspecialchars($row['price']) ?></p>
 
                         <p class="card-text small text-muted">
-                            <?= substr($row['description'], 0, 60) ?>...
+                            <?= substr(htmlspecialchars($row['description']), 0, 60) ?>...
                         </p>
                         <!-- Display seller name, if available, otherwise show 'Unknown' -->
                         <p class="seller_name">
@@ -128,11 +128,11 @@ $result = $conn->query($sql);
 
                         <!-- Buttons -->
                         <div class="mt-auto">
-                            <a href="product.php?id=<?=  $row['id'] ?>" class="btn btn-primary btn-sm w-100 mb-2">
+                            <a href="product.php?id=<?=  htmlspecialchars($row['prod_id']) ?>" class="btn btn-primary btn-sm w-100 mb-2">
                                 View Details
                             </a>
                             <!-- Add to cart button, it links to add_to_cart.php with the product id as a parameter -->
-                            <a href="add_to_cart.php?id=<?=  $row['id'] ?>" class="btn btn-success btn-sm w-100">
+                            <a href="add_to_cart.php?id=<?=  htmlspecialchars($row['prod_id']) ?>" class="btn btn-success btn-sm w-100">
                                 Add to Cart
                             </a>
                         </div>

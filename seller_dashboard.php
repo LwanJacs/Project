@@ -54,15 +54,15 @@ if ($result->num_rows > 0) {
         </p>
 
         <div class="dashboard-actions">
-            <a href="upload_product.php" class="dashboard-btn">
+            <a href="seller_features/upload_products.php" class="dashboard-btn">
                 Upload Products
             </a>
 
-            <a href="my_products.php" class="dashboard-btn">
+            <a href="seller_features/my_products.php" class="dashboard-btn">
                 My Products
             </a>
 
-            <a href="orders.php" class="dashboard-btn">
+            <a href="seller_features/my_orders.php" class="dashboard-btn">
                 View Orders
             </a>
         </div>

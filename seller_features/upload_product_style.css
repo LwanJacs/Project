@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css?family=Sofia");
+
+body {
+    background: #1b1f24;
+    font-family: Poppins, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.form {
+    width: 460px;
+    background: #24323d;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.title {
+    color: #da70d6;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input, textarea {
+    width: 100%;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+span {
+    color: #da70d6;
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.file-upload {
+    width: 100%;
+    margin-top: 5px;
+    border: none;
+    background: #2e3b47;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+}
+
+.submit-btn {
+    width: 100%;
+    background: #da70d6;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #e0b0ff;
+}
