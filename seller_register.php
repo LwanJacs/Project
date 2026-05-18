@@ -2,15 +2,15 @@
 session_start();
 include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
 
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
 // Get user ID from email in users table
-$email = $_SESSION['email'];
-$stmt = $conn->prepare("SELECT user_id, is_seller FROM users WHERE email = ?");
-$stmt->bind_param("s", $email);
+$user_id = $_SESSION['user_id'];
+$stmt = $conn->prepare("SELECT user_id, is_seller FROM users WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
 $stmt->execute();
 
 $result = $stmt->get_result();
@@ -21,8 +21,8 @@ $user_id = $user['user_id'];
 // If already a seller, redirect to dashboard
 if($user['is_seller'] == 1) {
     $_SESSION['message'] = "You are already registered as a seller.";
-
-    header("Location: login.php");
+    $_SESSION['toastClass'] = "bg-success";
+    header("Location: seller_dashboard.php");
     exit();
 }
 
@@ -45,28 +45,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $exists = $check->get_result();
     if ($exists->num_rows > 0) {
         $message ="Store name already taken.";
-    }
+    } else{
+        // Insert into sellers table
+        $stmt = $conn->prepare("INSERT INTO sellers (user_id, store_name, phone, address) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("isss", $user_id, $store_name, $phone, $address);
 
-    // Insert into sellers table
-    $stmt = $conn->prepare("INSERT INTO sellers (user_id, store_name, phone, address) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("isss", $user_id, $store_name, $phone, $address);
     
-    if ($stmt->execute()) {
+        if ($stmt->execute()) {
 
-    // Update user to be a seller
-    $update_stmt = $conn->prepare("UPDATE users SET is_seller = 1 WHERE user_id = ?");
+        // Update user to be a seller
+        $update_stmt = $conn->prepare("UPDATE users SET is_seller = 1 WHERE user_id = ?");
     
-    $update_stmt->bind_param("i", $user_id);
-    $update_stmt->execute();
+        $update_stmt->bind_param("i", $user_id);
+        $update_stmt->execute();
+        $_SESSION['is_seller'] = 1; // Update session variable to reflect new seller status
 
-    $_SESSION['message'] = "You are now registered as a seller!";
-    header("Location: login.php");
-    exit(); 
-    } else {
-        $message = "Something went wrong. Please try again.";
+        $_SESSION['message'] = "You are now registered as a seller!";
+        $_SESSION['toastClass'] = "bg-success";
+        header("Location: seller_dashboard.php");
+        exit(); 
+        } else {
+            $message = "Something went wrong. Please try again.";
 
+        }
     }
-    }
+}
+
 ?>
 
 <!DOCTYPE html>

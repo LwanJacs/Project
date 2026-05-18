@@ -20,7 +20,8 @@ if (!isset($_GET['prod_id'])) {
     exit();
 }
 
-$product_id = $_GET['prod_id'];
+// Sanitize product ID to prevent SQL injection
+$product_id = (int)$_GET['prod_id'];
 $user_id = $_SESSION['user_id'];
 
 // Fetch product details to pre-fill the form
@@ -46,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Update product details in the database
     $stmt = $conn->prepare("UPDATE products SET prod_name = ?, description = ?, price = ?, category = ? WHERE prod_id = ? AND user_id = ?");
-    $stmt->bind_param("ssdiii", $name, $description, $price, $category, $product_id, $user_id);
+    $stmt->bind_param("ssdsii", $name, $description, $price, $category, $product_id, $user_id);
     // Check if the update was successful
     if ($stmt->execute()) {
         $_SESSION['message'] = "Product updated successfully!";
@@ -63,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="my_product_style.css" rel="stylesheet">
+    <link href="edit_product_style.css" rel="stylesheet">
 </head>
 <body>
     <form method="POST" class="container">

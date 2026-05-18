@@ -3,7 +3,7 @@ session_start();
 include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
 
 // User must be logged in to access dashboard
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
@@ -15,11 +15,11 @@ if (!isset($_SESSION['is_seller']) || $_SESSION['is_seller'] != 1) {
 }
 
 // Get seller info
-$email = $_SESSION['email'];
+$user_id = $_SESSION['user_id'];
 
-// Find the username and store name of a specific seller, using their email address to look them up
-$stmt = $conn->prepare("SELECT users.username, sellers.store_name FROM users JOIN sellers ON users.user_id = sellers.user_id WHERE users.email = ?");
-$stmt->bind_param("s", $email);
+// Find the username and store name of a specific seller, using their user ID to look them up
+$stmt = $conn->prepare("SELECT users.username, sellers.store_name FROM users JOIN sellers ON users.user_id = sellers.user_id WHERE users.user_id = ?");
+$stmt->bind_param("i", $user_id);
 $stmt->execute();
 
 $result = $stmt->get_result();
@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
 } else {
     // If no seller info found, log out user
     session_destroy();
-    header("Location: login.php");
+    header("Location: dashboard.php");
     exit();
 }
 ?>
@@ -46,7 +46,7 @@ if ($result->num_rows > 0) {
 <body>
     <div class="seller-dashboard">
 
-        <h1>Welcome, <?= htmlspecialchars($seller['store_name']) ?>
+        <h1>Welcome to <?= htmlspecialchars($seller['store_name']) ?>
         </h1>
 
         <p>

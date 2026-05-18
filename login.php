@@ -5,12 +5,12 @@ $toastClass = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
+    $login = $_POST['login'];
     $password = $_POST['password'];
 
     //Prepare and execute
-    $stmt = $conn->prepare("SELECT user_id, password, is_seller FROM users WHERE email = ?");
-    $stmt ->bind_param("s", $email);
+    $stmt = $conn->prepare("SELECT user_id, password, is_seller FROM users WHERE email = ? OR username = ?");
+    $stmt ->bind_param("ss", $login, $login);
     $stmt->execute();
     $stmt->store_result();
 
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //Start the session and rediret to the dashboard or homepage
             session_start();
             $_SESSION['user_id'] = $user_id;
-            $_SESSION['email'] = $email;
+            $_SESSION['login'] = $login;
             $_SESSION['is_seller'] = $is_seller;
 
             $_SESSION ['message'] = "Login successful";
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $toastClass = "bg-danger";
         } 
     } else {
-        $message = "Email not found";
+        $message = "Email or username not found";
         $toastClass = "bg-warning";
     }
     $stmt->close();
@@ -72,8 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php endif; ?>
      <div class="row_1">
         <label>
-            <input type="text" name="email" required>
-            <span>Email</span>
+            <input type="text" name="login" required>
+            <span>Email or Username</span>
         </label>
     </div> 
      <div class="row_2">
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <button type="submit" class="button">Login</button>
      
      <div class="create">
-        <p><a href="./registration.php">Create Account</p>
+        <p><a href="./registration.php">Create Account</a></p>
      </div>
     </form>
     

@@ -3,7 +3,7 @@ session_start();
 include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
 
 // User must be logged in
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit();
 }
@@ -49,12 +49,12 @@ $result = $stmt->get_result();
 
                     <div class="buttons">
                         <!-- Edit button links to edit_product.php with the product id as a parameter -->
-                        <a href="edit_product.php?id=<?= htmlspecialchars($row['prod_id']) ?>" class="edit-btn">
+                        <a href="edit_product.php?prod_id=<?= htmlspecialchars($row['prod_id']) ?>" class="edit-btn">
                             Edit
                         </a>
 
                         <!-- Delete button links to delete_product.php with the product id as a parameter -->
-                        <a href="delete_product.php?id=<?= htmlspecialchars($row['prod_id']) ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this product?');">
+                        <a href="delete_product.php?prod_id=<?= htmlspecialchars($row['prod_id']) ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this product?');">
                             Delete
                         </a>
                     </div>

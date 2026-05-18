@@ -107,39 +107,42 @@ $result = $conn->query($sql);
 
 
         <!-- Product Grid -->
-        <?php while ($row = $result->fetch_assoc()): ?>
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <!-- This is the product card, it displays the product image, name, price, description and seller name -->
-                <div class="card product-card h-100">
-                    <img src="uploads/<?=  htmlspecialchars($row['image']) ?>" class="card-img-top" alt="Product Image">
-                    <!-- Card body with product details and buttons -->
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title"><?= htmlspecialchars($row['prod_name']) ?></h5>
+        <div class="row g-4">
+            <?php while ($row = $result->fetch_assoc()): ?>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <!-- This is the product card, it displays the product image, name, price, description and seller name -->
+                    <div class="card product-card h-100">
+                        <img src="uploads/<?=  htmlspecialchars($row['image']) ?>" class="card-img-top" alt="Product Image">
+                        <!-- Card body with product details and buttons -->
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title"><?= htmlspecialchars($row['prod_name']) ?></h5>
 
-                        <p class="price">R<?= htmlspecialchars($row['price']) ?></p>
+                            <p class="price">R<?= htmlspecialchars($row['price']) ?></p>
 
-                        <p class="card-text small text-muted">
-                            <?= substr(htmlspecialchars($row['description']), 0, 60) ?>...
-                        </p>
-                        <!-- Display seller name, if available, otherwise show 'Unknown' -->
-                        <p class="seller_name">
-                            Sold by: <?=  htmlspecialchars($row['seller_name'] ?? 'Unknown') ?>
-                        </p>
+                            <p class="card-text small text-muted">
+                                <?= substr(htmlspecialchars($row['description']), 0, 60) ?>...
+                            </p>
+                            <!-- Display seller name, if available, otherwise show 'Unknown' -->
+                            <p class="seller_name">
+                                Sold by: <?=  htmlspecialchars($row['seller_name'] ?? 'Unknown') ?>
+                            </p>
 
-                        <!-- Buttons -->
-                        <div class="mt-auto">
-                            <a href="product.php?id=<?=  htmlspecialchars($row['prod_id']) ?>" class="btn btn-primary btn-sm w-100 mb-2">
-                                View Details
-                            </a>
-                            <!-- Add to cart button, it links to add_to_cart.php with the product id as a parameter -->
-                            <a href="add_to_cart.php?id=<?=  htmlspecialchars($row['prod_id']) ?>" class="btn btn-success btn-sm w-100">
-                                Add to Cart
-                            </a>
+                            <!-- Buttons -->
+                            <div class="mt-auto">
+                                <a href="view_details.php?prod_id=<?=  htmlspecialchars($row['prod_id']) ?>" class="btn btn-primary btn-sm w-100 mb-2">
+                                    View Details
+                                </a>
+                                <!-- Add to cart button, it links to add_to_cart.php with the product id as a parameter -->
+                                <a href="add_to_cart.php?prod_id=<?=  htmlspecialchars($row['prod_id']) ?>" class="btn btn-success btn-sm w-100">
+                                    Add to Cart
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <?php endwhile; ?>
+            <?php endwhile; ?>
+        </div>
 
         </div>
     </div>

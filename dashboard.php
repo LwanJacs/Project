@@ -2,6 +2,12 @@
 session_start();
 // Check if the user is logged in, if not
 // redirect to login page
+if (!isset($_SESSION['user_id'])) {
+
+    header("Location: login.php");
+    exit();
+}
+
 $message = "";
 $toastClass = "";
 
@@ -58,9 +64,9 @@ if (isset($_SESSION['message'])) {
                     <li class="nav-item">
                     <?php if (isset($_SESSION['is_seller']) && $_SESSION['is_seller']): ?>
                         <!--Already a seller, show dashboard link-->
-                        <button class="nav-link btn" data-bs-toggle="modal" data-bs-target="#sellerModal">
+                        <a class="nav-link btn" href="seller_dashboard.php">
                             My Store
-                        </button>
+                        </a>
                     <?php else: ?>
                         <!--Not a seller, show registration link-->
                         <a class="nav-link" href="seller_register.php">

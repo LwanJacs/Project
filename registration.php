@@ -4,42 +4,52 @@ $message = "";
 $toastClass = "";
 
 if($_SERVER["REQUEST_METHOD"] =="POST"){
-    $fname = $_POST['name'];
-    $lname = $_POST['surname'];
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    //Check if email already exists
-    $checkEmailStmt = $conn->prepare("SELECT email FROM users WHERE email = ?");
-
-    $checkEmailStmt->bind_param("s", $email);
-    $checkEmailStmt->execute();
-    $checkEmailStmt->store_result();
-    //If number of rows returned is greater than 0, then email exists.
-    if($checkEmailStmt->num_rows > 0){
-        $message = "Email ID already exists";
-        $toastClass = "#007bff"; 
+    // Validate the password strength
+    if (strlen($password) < 6 || !preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password)) {
+        $message = "Password must be at least 6 characters long and include at least one uppercase letter, one lowercase letter, and one number.";
+        $toastClass = "bg-danger"; 
     } else {
-        //Prepare and bind
-        $stmt = $conn->prepare("INSERT INTO users (name, surname, username, email, password)
-        VALUES (?, ?, ?, ?, ?)");
-        //Safely inserts data into the table with a prepared statement. 'sssss' means all the values are string.
-        $stmt->bind_param("sssss", $fname, $lname, $username, $email, $hashedPassword);
-        
-        // Checking if account registered successfully
-        if($stmt->execute()) {
-            $message = "Account created successfully";
-            $toastClass = "#28a745";
+        // Hash the password before storing it in the database
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        //Check if email already exists
+        $checkEmailStmt = $conn->prepare("SELECT email FROM users WHERE email = ? OR username = ?");
+
+        $checkEmailStmt->bind_param("ss", $email, $username);
+        $checkEmailStmt->execute();
+        $checkEmailStmt->store_result();
+        //If number of rows returned is greater than 0, then email exists.
+        if($checkEmailStmt->num_rows > 0){
+            $message = "Email ID already exists";
+            $toastClass = "bg-info"; 
         } else {
-            $message = "Error ";
-            $toastClass = "#dc3545";
+            //Prepare and bind
+            $stmt = $conn->prepare("INSERT INTO users (name, surname, username, email, password)
+            VALUES (?, ?, ?, ?, ?)");
+            //Safely inserts data into the table with a prepared statement. 'sssss' means all the values are string.
+            $stmt->bind_param("sssss", $name, $surname, $username, $email, $hashedPassword);
+        
+            // Checking if account registered successfully
+            if($stmt->execute()) {
+                $message = "Account created successfully";
+                $toastClass = "bg-success";
+            } else {
+                $message = "Error ";
+                $toastClass = "bg-danger";
+            }
+            
+            $stmt->close();
         }
 
-        $stmt->close();
+        $checkEmailStmt->close();
     }
-    $checkEmailStmt->close();
+
     $conn->close();
 }
 ?>
@@ -49,23 +59,22 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Registration</title>
 </head>
 <body>
     <?php if ($message): ?>
-        <div class="toast" style="background-color: <?php echo $toastClass; ?>;">
+        <div class="toast <?php echo $toastClass; ?>">
             <span><?php echo $message; ?></span> <!-- inserts message-->
-            <button onclick="closeToast()">X</button><!-- inserts color-->
+            <a href="homepage.php" class="btn-close btn-close-white" aria-label="Close"></a>
         </div>
     <?php endif; ?>
     <form method="post" class="form">
 
-    <button type="button" 
+    <a href="homepage.php" 
     class="btn-close btn-close-white custom-close-btn close-form-btn"
-    aria-label="Close"></button>
+    aria-label="Close"></a>
 
     <div class="title">
         <h5>Create Your Account</h5>
@@ -89,9 +98,10 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
             <input type="email" name="email" required>
             <span>Email</span>
         </label>
-        <label>
-            <input type="password" name="password" required>
+        <label class="password-box">
+            <input type="password" name="password" id="password" required>
             <span>Password</span>
+            <i class="fa fa-eye toggle-password" id="togglePassword"></i> 
         </label>
         <button class="submit">Create Account</button>
         <p class="signin">
@@ -100,6 +110,15 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
         </p>
         
     </form>
-<script src="close_btn.js"></script>
+<script>
+    const togglePassword = document.getElementById("togglePassword");
+    const password = document.getElementById("password");
+    togglePassword.addEventListener("click", function () {
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        this.classList.toggle("fa-eye-slash");
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
