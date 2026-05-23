@@ -1,10 +1,10 @@
 <?php 
 session_start();
 // Check if the user is logged in, if not
-// redirect to login page
+// redirect to homepage
 if (!isset($_SESSION['user_id'])) {
 
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -50,9 +50,13 @@ if (isset($_SESSION['message'])) {
     <?php endif; ?>
 
     <nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
-
+        <a class="btn btn-outline-secondary mt-3 ms-3" href="index.php">← Home</a>
         <div class="container">
             <a class="navbar-brand" href="#">Symphonic Contracts</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <!--Navigation links-->
             <div class="collapse navbar-collapse" id="navMenu">
 
@@ -102,7 +106,7 @@ if (isset($_SESSION['message'])) {
                         <ul class="dropdown-menu dropdown-menu-end custom-dropdown"
                             aria-labelledby="accountDropdown">
                             <li>
-                                <a class="dropdown-item" hrf="profile.php">
+                                <a class="dropdown-item" href="profile.php">
                                     <i class="fa fa-user-circle"></i> My Profile
                                 </a>
                             </li>
@@ -125,7 +129,7 @@ if (isset($_SESSION['message'])) {
 
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item text danger" href="logout.php">
+                                <a class="dropdown-item text-danger" href="logout.php">
                                     <i class="fa fa-sign-out"></i> Logout
                                 </a>
                             </li>

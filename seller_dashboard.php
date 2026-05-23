@@ -44,6 +44,9 @@ if ($result->num_rows > 0) {
     <title>Seller Dashboard</title>
 </head>
 <body>
+    <div class="mt-3">
+        <button class="btn btn-outline-secondary mt-3 ms-3" onclick="goBack()">← Back</button>
+    </div>
     <div class="seller-dashboard">
 
         <h1>Welcome to <?= htmlspecialchars($seller['store_name']) ?>
@@ -67,6 +70,9 @@ if ($result->num_rows > 0) {
             </a>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="close_btn.js"></script>
     
 </body>
 </html>

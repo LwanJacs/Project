@@ -11,8 +11,8 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
     $password = $_POST['password'];
 
     // Validate the password strength
-    if (strlen($password) < 6 || !preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password)) {
-        $message = "Password must be at least 6 characters long and include at least one uppercase letter, one lowercase letter, and one number.";
+    if (strlen($password) < 6 || !preg_match("/[A-Z]/", $password) || !preg_match("/[0-9]/", $password)) {
+        $message = "Password must be at least 6 characters long and include at least one uppercase letter, and one number.";
         $toastClass = "bg-danger"; 
     } else {
         // Hash the password before storing it in the database
@@ -20,13 +20,12 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
 
         //Check if email already exists
         $checkEmailStmt = $conn->prepare("SELECT email FROM users WHERE email = ? OR username = ?");
-
         $checkEmailStmt->bind_param("ss", $email, $username);
         $checkEmailStmt->execute();
         $checkEmailStmt->store_result();
         //If number of rows returned is greater than 0, then email exists.
         if($checkEmailStmt->num_rows > 0){
-            $message = "Email ID already exists";
+            $message = "Username or Email ID already exists";
             $toastClass = "bg-info"; 
         } else {
             //Prepare and bind
@@ -65,14 +64,14 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
 </head>
 <body>
     <?php if ($message): ?>
-        <div class="toast <?php echo $toastClass; ?>">
+        <div class="toast show <?php echo $toastClass; ?>">
             <span><?php echo $message; ?></span> <!-- inserts message-->
-            <a href="homepage.php" class="btn-close btn-close-white" aria-label="Close"></a>
+            <a href="index.php" class="btn-close btn-close-white custom-close-btn close-form-btn" aria-label="Close"></a>
         </div>
     <?php endif; ?>
     <form method="post" class="form">
 
-    <a href="homepage.php" 
+    <a href="index.php" 
     class="btn-close btn-close-white custom-close-btn close-form-btn"
     aria-label="Close"></a>
 
@@ -99,26 +98,19 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
             <span>Email</span>
         </label>
         <label class="password-box">
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[A-Z]).{6,}" title="Must contain at least one number, one uppercase letter, and at least 6 or more characters">
             <span>Password</span>
             <i class="fa fa-eye toggle-password" id="togglePassword"></i> 
         </label>
-        <button class="submit">Create Account</button>
+        <a href="./login.php">
+            <button type="button" class="submit">Create Account</button>
+        </a>
         <p class="signin">
                 Already have an account?
                 <a href="./login.php">Signin</a>
         </p>
-        
     </form>
-<script>
-    const togglePassword = document.getElementById("togglePassword");
-    const password = document.getElementById("password");
-    togglePassword.addEventListener("click", function () {
-        const type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
-        this.classList.toggle("fa-eye-slash");
-    });
-</script>
+<script src="password_toggle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

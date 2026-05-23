@@ -22,8 +22,30 @@ body {
     font-weight: bold;
 }
 
- .btn-remove {
+.btn-remove {
     background: #dc3545;
     color: white;
     border: none;
-        }
+    } 
+.btn-remove:hover {
+    background: #c82333;   
+    }
+
+.btn-success {
+    background: #28a745;
+    color: white;
+    border: none;
+}
+.btn-success:hover {
+    background: #218838;
+}
+
+.btn-outline-primary {
+    background: transparent;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+.btn-outline-primary:hover {
+    background: #007bff;
+    color: white;
+}

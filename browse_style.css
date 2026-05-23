@@ -17,7 +17,18 @@ body {
     color: #cfcfcf;
 }
 
-
+.form-control, .form-select {
+    background: #1b1f24;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 8px;
+}
+.form-control:focus, .form-select:focus {
+    background: #1b1f24;
+    color: white;
+    border: 1px solid #da70d6;
+    box-shadow: none;
+}
 /* Card */
 .product-card {
     background: #24323d;

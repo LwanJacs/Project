@@ -70,16 +70,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?= htmlspecialchars($message) ?>
         </div>
     <?php endif; ?>
-     <div class="row_1">
+    <div class="row_1">
         <label>
-            <input type="text" name="login" required>
+            <input type="text" name="login" autocomplete="username">
             <span>Email or Username</span>
         </label>
     </div> 
      <div class="row_2">
         <label>
-            <input type="password" name="password" required>
+            <input type="password" name="password" id="password" autocomplete="current-password">
             <span>Password</span>
+            <i class="fa fa-eye toggle-password" id="togglePassword"></i>
         </label>
     </div>
     <button type="submit" class="button">Login</button>
@@ -88,6 +89,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p><a href="./registration.php">Create Account</a></p>
      </div>
     </form>
+
+
+    <script src="password_toggle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
     
 </body>
 </html>

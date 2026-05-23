@@ -1,8 +1,14 @@
 <?php 
 session_start();
 // Add product to cart
-include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
-$product_id = $_GET['cart'];
+include 'database/db_connect.php';
+
+// Check if product ID is provided
+if (!isset($_GET['prod_id'])) {
+    header('Location: browse.php');
+    exit();
+}
+$product_id = $_GET['prod_id'];
 
 // Initialize cart if it doesn't exist
 if (!isset($_SESSION['cart'])) {
