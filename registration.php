@@ -1,5 +1,5 @@
 <?php
-include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
+include 'database\db_connect.php';
 $message = "";
 $toastClass = "";
 
@@ -14,12 +14,13 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
     if (strlen($password) < 6 || !preg_match("/[A-Z]/", $password) || !preg_match("/[0-9]/", $password)) {
         $message = "Password must be at least 6 characters long and include at least one uppercase letter, and one number.";
         $toastClass = "bg-danger"; 
+        
     } else {
         // Hash the password before storing it in the database
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         //Check if email already exists
-        $checkEmailStmt = $conn->prepare("SELECT email FROM users WHERE email = ? OR username = ?");
+        $checkEmailStmt = $conn->prepare("SELECT user_id FROM users WHERE email = ? OR username = ?");
         $checkEmailStmt->bind_param("ss", $email, $username);
         $checkEmailStmt->execute();
         $checkEmailStmt->store_result();
@@ -36,10 +37,13 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
         
             // Checking if account registered successfully
             if($stmt->execute()) {
-                $message = "Account created successfully";
-                $toastClass = "bg-success";
+                $_SESSION['message'] = "Account created successfully! Please login,";
+                $_SESSION['toastClass'] = "bg-success";
+
+                header("Location: login.php");
+                exit();
             } else {
-                $message = "Error ";
+                $message = "Error in creating account.". $stmt->error;
                 $toastClass = "bg-danger";
             }
             
@@ -63,10 +67,9 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
     <title>Registration</title>
 </head>
 <body>
-    <?php if ($message): ?>
+    <?php if (!empty($message)): ?>
         <div class="toast show <?php echo $toastClass; ?>">
-            <span><?php echo $message; ?></span> <!-- inserts message-->
-            <a href="index.php" class="btn-close btn-close-white custom-close-btn close-form-btn" aria-label="Close"></a>
+            <span><?= htmlspecialchars($message) ?></span> <!-- inserts message-->
         </div>
     <?php endif; ?>
     <form method="post" class="form">
@@ -98,13 +101,12 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
             <span>Email</span>
         </label>
         <label class="password-box">
-            <input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[A-Z]).{6,}" title="Must contain at least one number, one uppercase letter, and at least 6 or more characters">
+            <input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[A-Z]).{6,}" title="Must contain at least one number, one uppercase letter, and at least 6 or more characters" required>
             <span>Password</span>
             <i class="fa fa-eye toggle-password" id="togglePassword"></i> 
         </label>
-        <a href="./login.php">
-            <button type="button" class="submit">Create Account</button>
-        </a>
+
+        <button type="submit" class="submit">Create Account</button>
         <p class="signin">
                 Already have an account?
                 <a href="./login.php">Signin</a>

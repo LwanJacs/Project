@@ -59,25 +59,47 @@ $cart = $_SESSION['cart'] ?? [];
                         <p class="price">R<?= $product['price'] ?> x <?=  $qty ?></p>
                     </div>
 
-                    <div>
-                        <strong><?= $subtotal ?></strong>
-                        <a href="remove_from_cart.php?id=<?= $product_id ?>"
-                           class="btn btn-sm btn-remove ms-3">
-                           Remove
-                        </a>
+                    <div class="text-end">
+
+                        <div class="quantity-controls">
+
+                            <!--Minus buton-->
+                            <a href="update_cart.php?prod_id=<?= $product_id ?>&action=decrease"
+                                class="quantity-btn minus text-decoration-none d-flex justify-content-center align-items-center"></a>
+
+                            <!--Quantity-->
+                            <span class="quantity-value"><?= $qty ?></span>
+
+                            <!--Plus button-->
+                            <a href="update_cart.php?prod_id=<?= $product_id ?>&action=increase"
+                                class="quantity-btn plus text-decoration-none d-flex justify-content-center align-items-center"></a>
+                        
+                        </div>
+
+                        <div class="subtotal mb-2">
+                            <!-- Subtotal-->
+                            <strong class="d-block mb-2">R<?= number_format($subtotal, 2) ?></strong>
+                        </div>
+
+                            <!--Remove button-->
+                            <a href="remove_from_cart.php?id=<?= $product_id ?>"
+                            class="btn btn-sm btn-remove ms-3">
+                            Remove
+                            </a>
                     </div>
+
                 </div>
                 
                 <?php endforeach; ?>
 
                 <hr>
 
-                <h4>Total: <span class="price">R<?= $total ?></span></h4>
+                <h4>Total: <span class="total-price">R<?= number_format($total, 2) ?></span></h4>
 
                 <div class="d-flex gap-2 mt-3">
-                    <button class="btn btn-success mt-3 w-100">
+                    <a href="checkout.php" class="btn btn-success mt-3 w-100 checkout-btn">
                         Checkout
-                    </button>
+                    </a>
                     <a href="browse.php" class="btn btn-outline-primary mt-2 w-100">
                         ← Continue Shopping
                     </a>

@@ -104,6 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="submit-btn">Upload</button>
 
     </form>
+
+    <script src="../close_btn.js"></script>
     
 </body>
 </html>

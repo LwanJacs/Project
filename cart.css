@@ -49,3 +49,88 @@ body {
     background: #007bff;
     color: white;
 }
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.quantity-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.quantity-btn.minus {
+    background: #dc3545;
+    color: white;
+}
+
+.quantity-btn.minus:hover{
+    background: #bb2d3b;
+}
+
+.quantity-btn.plus {
+    background: #28a745;
+    color: white;
+}
+
+.quantity-btn.plus:hover {
+    background: #218838;
+}
+
+.quantity-value {
+    min-width: 25px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.subtotal {
+    color: #da70d6;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.total-price {
+    color:#da70d6;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.checkout-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #28a745;
+    color: white;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    padding: 12px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background: #218838;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+}

@@ -37,6 +37,9 @@ $result = $stmt->get_result();
     <link href="my_products_style.css" rel="stylesheet">
 </head>
 <body>
+    <div class="mt-3">
+        <button class="btn btn-outline-secondary mt-3 ms-3" onclick="goBack()">← Back</button>
+    </div>
     <div class="container">
         <h1>My Products</h1>
 
@@ -62,6 +65,8 @@ $result = $stmt->get_result();
             <?php endwhile; ?>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../close_btn.js"></script>
     
 </body>
 </html>

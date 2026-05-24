@@ -116,7 +116,7 @@ if (!$result) {
 
         <!-- Product Grid -->
         <div class="row g-4">
-            <?php if($result && $result->num_rows == 0): ?>
+            <?php if($result && $result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <div class="col-12 col-sm-6 col-lg-4">
                         <!-- This is the product card, it displays the product image, name, price, description and seller name -->
@@ -149,8 +149,7 @@ if (!$result) {
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php endwhile; ?>
+                <?php endwhile; ?>
             <?php else: ?>
                 <div class="col-12">
                     <p class="alert alert-warning text-center">No products matching your search.</p>

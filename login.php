@@ -1,5 +1,5 @@
 <?php
-include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
+include 'database\db_connect.php';
 $message = "";
 $toastClass = "";
 
@@ -72,13 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php endif; ?>
     <div class="row_1">
         <label>
-            <input type="text" name="login" autocomplete="username">
+            <input type="text" name="login" autocomplete="username" placeholder="" required>
             <span>Email or Username</span>
         </label>
     </div> 
      <div class="row_2">
         <label>
-            <input type="password" name="password" id="password" autocomplete="current-password">
+            <input type="password" name="password" id="password" autocomplete="current-password" placeholder="">
             <span>Password</span>
             <i class="fa fa-eye toggle-password" id="togglePassword"></i>
         </label>
