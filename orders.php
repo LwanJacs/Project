@@ -25,9 +25,14 @@ $result = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="orders_style.css" rel="stylesheet">
 </head>
 <body>
+    <div class="mt-3">
+        <button class="btn btn-outline-secondary mt-3 ms-3" onclick="goBack()">
+            ← Back
+        </button>
+    </div>
     <div class="container mt-5">
         <h2>My Orders</h2>
         <?php if ($result->num_rows > 0): ?>
@@ -41,11 +46,25 @@ $result = $stmt->get_result();
                     </p>
                     <p>
                         Status:
-                        <?= htmlspecialchars($order['status']) ?>
+                        <?= ucfirst($order['status']) ?>
                     </p>
-                    <small>
+                    <small class="d-fkex gap-2">
                         <?= $order['created_at'] ?>
                     </small>
+                
+                    <div class="d-flex gap-2">
+                        <!--View Details -->
+                        <a href="order_details.php?order_id=<?= $order['order_id'] ?>" class="btn btn-primary btn-sm">View Details</a>
+
+                        <!-- Cancel Order -->
+                        <?php if (
+                            $order['status'] == 'pending' || 
+                            $order['status'] == 'paid'
+                        ): ?>
+                            <a href="cancel_order.php?order_id=<?= $order['order_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Cancel this order?')">Cancel Order</a>
+
+                        <?php endif; ?>
+                    </div>
 
                 </div>
             <?php endwhile; ?>
@@ -55,6 +74,8 @@ $result = $stmt->get_result();
             </div>
         <?php endif; ?>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="back_button.js"></script>
     
 </body>
 </html>

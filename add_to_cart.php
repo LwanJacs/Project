@@ -3,6 +3,14 @@ session_start();
 // Add product to cart
 include 'database/db_connect.php';
 
+//  User account must be logged in
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['message'] = "You must be logged in to add items to your cart.";
+    $_SESSION['toastClass'] = "bg-warning";
+
+    header("Location: browse.php");
+    exit();
+}
 // Check if product ID is provided
 if (!isset($_GET['prod_id'])) {
     header('Location: browse.php');
@@ -23,6 +31,9 @@ if (isset($_SESSION['cart'][$product_id])) {
     $_SESSION['cart'][$product_id] = 1;
 }
 
-header("Location: cart.php");
+$_SESSION['message'] = "Product added to cart!";
+$_SESSION['toastClass'] = "bg-success";
+
+header("Location: browse.php");
 exit();
 ?>

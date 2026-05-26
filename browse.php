@@ -1,7 +1,8 @@
 <?php 
-include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
+session_start();
+include 'database/db_connect.php';
 // Fetches from the db 
-$sql = "SELECT * FROM products WHERE 1=1";
+$sql = "SELECT products.*, sellers.store_name FROM products LEFT JOIN sellers ON products.user_id = sellers.user_id WHERE 1=1";
 
 // Adding filters
 if (!empty($_GET['search'])) {
@@ -53,6 +54,38 @@ if (!$result) {
 </head>
 
 <body>
+    <?php
+    $message = "";
+    $toastClass = "";
+
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        $toastClass = $_SESSION['toastClass'];
+
+        unset($_SESSION['message']);
+        unset($_SESSION['toastClass']);
+    }
+    ?>
+
+    <?php if ($message): ?>
+
+        <div class="container mt-3">
+            <div class="alert <?= $toastClass ?> text-white text-center">
+                <?= htmlspecialchars($message) ?>
+
+                <?php if (!isset($_SESSION['user_id'])): ?>
+
+                    <div class="mt-2">
+                        <a href="login.php" class="btn btn-light btn-sm"> 
+                            Login Here
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+
     <div class="mt-3">
         <button class="btn btn-outline-secondary mt-3 ms-3" onclick="goHome()">← Back</button>
     </div>
@@ -110,7 +143,6 @@ if (!$result) {
             </div> 
 
             </div>
-            </div>
         </form>
 
 
@@ -133,7 +165,7 @@ if (!$result) {
                                 </p>
                                 <!-- Display seller name, if available, otherwise show 'Unknown' -->
                                 <p class="seller_name">
-                                    Sold by: <?=  htmlspecialchars($row['seller_name'] ?? 'Unknown') ?>
+                                    Sold by: <?=  htmlspecialchars($row['store_name'] ?? 'Unknown') ?>
                                 </p>
 
                                 <!-- Buttons -->
@@ -159,6 +191,6 @@ if (!$result) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="close_btn.js"></script>
+    <script src="back_button.js"></script>
 </body>
 </html>

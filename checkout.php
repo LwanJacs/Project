@@ -20,7 +20,6 @@ $total = 0;
 // Calculate total
 $stmt = $conn->prepare("SELECT * FROM products WHERE prod_id = ?");
 
-// calculate total price
 foreach ($cart as $product_id => $qty) {
 
     $stmt->bind_param("i", $product_id);
@@ -44,6 +43,10 @@ if (!$order_stmt->execute()) {
 // Getting a new order ID
 $order_id = $conn->insert_id;
 
+// Save order ID in session
+$_SESSION['pending_order_id'] = $order_id;
+
+// Save order items
 $item_stmt = $conn->prepare("INSERT INTO order_items (order_id, prod_id, quantity, price) VALUES (?, ?, ?, ?)");
 
 // Insert order items
@@ -65,12 +68,7 @@ foreach ($cart as $product_id => $qty) {
     }
 }
 
-// Clear cart
-unset($_SESSION['cart']);
-
-$_SESSION['message'] = "Order placed successfully!";
-$_SESSION['toastClass'] = "bg-success";
-
-header("Location: orders.php");
+// Redirect to payment page
+header("Location: payment.php");
 exit();
 ?>

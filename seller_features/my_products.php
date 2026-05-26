@@ -66,7 +66,7 @@ $result = $stmt->get_result();
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../close_btn.js"></script>
+    <script src="../back_button.js"></script>
     
 </body>
 </html>

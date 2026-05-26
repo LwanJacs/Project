@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #1b1f24;
+    font-family: "Poppins", "san-serif";
+    color: #fff;
+    min-height: 100vh;
+}
+
+/*Page Title*/
+h2 {
+    color: #da70d6;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/*Order Card*/
+.card{
+    background: #24323d;
+    border: none;
+    border-radius: 18px;
+    padding: 20px;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/*Order Number*/
+.card h5 {
+    color: #da70d6;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/*Order Details*/
+.card p{
+    margin-bottom: 10px;
+    color: #d6d6d6;
+    font-size: 1rem;
+}
+
+/*Price*/
+.card p:first-of-type {
+    font-weight: 600;
+    color: #28d17c;
+}
+
+/*Date*/
+.card p:nth-of-type(2) {
+    display: block;
+    margin-top: 10px;
+    color: #9da5ad;
+    font-size: 0.85rem;
+}
+
+/*Empty Order Message*/
+.alert-info {
+    background: #24323d;
+    border: 1px solid #3d4d59;
+    color: #fff;
+    border-radius: 12px;
+    text-align: center;
+    padding: 18px;
+    font-size: 1rem;
+}
+
+/*Container Spacing*/
+.container {
+    max-width: 800px;
+}
+
+/*Responsive*/
+@media (max-width: 768px) {
+     .card {
+        padding: 16px;
+    }
+
+    .card h5 {
+        font-size: 1.1rem;
+    }
+
+    .card p {
+        font-size: 0.95rem;
+    }
+}

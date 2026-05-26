@@ -3,12 +3,12 @@ session_start();
 include 'database\db_connect.php';
 
 // Check if the product ID is provided
-if (!isset($_GET['id'])) {
+if (!isset($_GET['prod_id'])) {
     header('Location: browse.php');
     exit;
 }
 
-$product_id = (int) $_GET['id'];
+$product_id = (int) $_GET['prod_id'];
 
 // Fetch product details from the database
 $stmt = $conn->prepare("SELECT products.*, sellers.store_name FROM products LEFT JOIN sellers ON products.user_id = sellers.user_id LEFT JOIN users ON products.prod_id = ?");

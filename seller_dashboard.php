@@ -45,7 +45,9 @@ if ($result->num_rows > 0) {
 </head>
 <body>
     <div class="mt-3">
-        <button class="btn btn-outline-secondary mt-3 ms-3" onclick="goBack()">← Back</button>
+        <button class="btn btn-outline-secondary mt-3 ms-3" onclick="goBack()">
+            ← Back
+        </button>
     </div>
     <div class="seller-dashboard">
 
@@ -72,7 +74,7 @@ if ($result->num_rows > 0) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="close_btn.js"></script>
+    <script src="back_button.js"></script>
     
 </body>
 </html>
