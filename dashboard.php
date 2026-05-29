@@ -1,5 +1,6 @@
 <?php 
 session_start();
+include 'database/db_connect.php';
 // Check if the user is logged in, if not
 // redirect to homepage
 if (!isset($_SESSION['user_id'])) {
@@ -19,6 +20,14 @@ if (isset($_SESSION['message'])) {
     unset($_SESSION['toastClass']);
 }
 
+$stmt = $conn->prepare("SELECT balance FROM users WHERE user_id = ?");
+$stmt->bind_param("i", $_SESSION['user_id']);
+$stmt->execute();
+
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+$balance = $user['balance'];
 
 ?>
 
@@ -78,6 +87,15 @@ if (isset($_SESSION['message'])) {
                         </a>
                     <?php endif; ?>
                     </li>
+                    <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+                        <li class="nav-item">
+                            <a class="nav-link admin-link" href="admin/admin_dashboard.php">
+                                Admin Panel
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    
+                        
                 </ul>
                 <!--Search bar-->
                 <form class="search-form me-3" action="search.php" method="GET">
@@ -106,7 +124,7 @@ if (isset($_SESSION['message'])) {
                         <ul class="dropdown-menu dropdown-menu-end custom-dropdown"
                             aria-labelledby="accountDropdown">
                             <li>
-                                <a class="dropdown-item" href="profile.php">
+                                <a class="dropdown-item" href="coming_soon.php">
                                     <i class="fa fa-user-circle"></i> My Profile
                                 </a>
                             </li>
@@ -122,7 +140,7 @@ if (isset($_SESSION['message'])) {
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="messages.php">
+                                <a class="dropdown-item" href="coming_soon.php">
                                     <i class="fa fa-envelope"></i> Messages
                                 </a>
                             </li>
@@ -172,7 +190,7 @@ if (isset($_SESSION['message'])) {
         <div class="col-md-4">
             <div class="dashboard-card">
                 <h4>Balance</h4>
-                <p>R0.00</p>
+                <p>R<?= number_format($balance, 2) ?></p>
             </div>
         </div>
     

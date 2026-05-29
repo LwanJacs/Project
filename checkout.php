@@ -34,7 +34,7 @@ foreach ($cart as $product_id => $qty) {
 }
 
 // Create order
-$order_stmt = $conn->prepare("INSERT INTO orders (user_id, total_price) VALUES (?, ?)");
+$order_stmt = $conn->prepare("INSERT INTO orders (user_id, total_price, status) VALUES (?, ?, 'pending')");
 $order_stmt->bind_param("id", $user_id, $total);
 if (!$order_stmt->execute()) {
     die("Failed to create order: ". $order_stmt->error);
@@ -48,6 +48,7 @@ $_SESSION['pending_order_id'] = $order_id;
 
 // Save order items
 $item_stmt = $conn->prepare("INSERT INTO order_items (order_id, prod_id, quantity, price) VALUES (?, ?, ?, ?)");
+
 
 // Insert order items
 foreach ($cart as $product_id => $qty) {

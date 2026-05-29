@@ -9,13 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     //Prepare and execute
-    $stmt = $conn->prepare("SELECT user_id, password, is_seller FROM users WHERE email = ? OR username = ?");
+    $stmt = $conn->prepare("SELECT user_id, password, is_seller, is_admin FROM users WHERE email = ? OR username = ?");
     $stmt ->bind_param("ss", $login, $login);
     $stmt->execute();
     $stmt->store_result();
 
     if($stmt->num_rows > 0) {
-        $stmt->bind_result($user_id, $db_password, $is_seller);
+        $stmt->bind_result($user_id, $db_password, $is_seller, $is_admin);
         $stmt->fetch();
 
         //If statement will run through the password verification process, 
@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $user_id;
             $_SESSION['login'] = $login;
             $_SESSION['is_seller'] = $is_seller;
+            $_SESSION['is_admin'] = $is_admin;
 
             $_SESSION ['message'] = "Login successful";
             $_SESSION ['toastClass'] = "bg-success";

@@ -65,9 +65,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Product</title>
     <link href="upload_product_style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <form method="POST" enctype="multipart/form-data" class="form">
+
+        
+        <button type="button" class="back-btn" onclick="goBack()">
+            <i class="fa fa-arrow-left"></i> Back
+        </button>
+        
 
         <h2 class="title">Upload Product</h2>
         <?php if($message): ?>
@@ -98,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </label>
 
         <label class="file-upload">
-            <input type="file" name="image" accept="uploads/*" required>
+            <input type="file" name="image" accept="image/*" required>
         </label>
 
         <button type="submit" class="submit-btn">Upload</button>

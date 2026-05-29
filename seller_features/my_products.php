@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
+include '../database/db_connect.php';
 
 // User must be logged in
 if (!isset($_SESSION['user_id'])) {

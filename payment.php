@@ -8,11 +8,12 @@ if (!isset($_SESSION['pending_order_id'])) {
 }
 
 $order_id = $_SESSION['pending_order_id'];
+$user_id = $_SESSION['user_id'];
 
 // Get order info
-$stmt = $conn->prepare("SELECT * FROM orders WHERE order_id = ?");
+$stmt = $conn->prepare("SELECT * FROM orders WHERE order_id = ? and user_id = ?");
 
-$stmt->bind_param("i", $order_id);
+$stmt->bind_param("ii", $order_id, $user_id);
 $stmt->execute();
 
 $result = $stmt->get_result();
@@ -22,8 +23,39 @@ if (!$order) {
     die("Order not found.");
 }
 
+$total  = $order['total_price'];
+
+// Get user balance
+$balance_stmt = $conn->prepare("SELECT balance FROM users WHERE user_id = ?");
+$balance_stmt->bind_param("i", $user_id);
+$balance_stmt->execute();
+
+$balance_result = $balance_stmt->get_result();
+$user = $balance_result->fetch_assoc();
+
+$current_balance = $user['balance'];
+
+
+// Check if user has enough money
+if ($current_balance < $total) {
+    $_SESSION['message'] = "Insufficient funds.";
+    $_SESSION['toastClass'] = "bg-danger";
+
+    header("Location: cart.php");
+    exit();
+}
+
+
 //Handle payment submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Deduct balance
+    
+    $new_balance = $current_balance - $total;
+    $update_balance = $conn->prepare("UPDATE users SET balance = ? WHERE user_id = ?");
+    $update_balance->bind_param("di", $new_balance, $user_id);
+    $update_balance->execute();
+
     
     //Update order status
     $update = $conn->prepare("UPDATE orders SET status = 'paid' WHERE order_id = ?");
@@ -67,6 +99,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p>
                 <strong>Total:</strong>
                 R<?= number_format($order['total_price'], 2) ?>
+            </p>
+
+            <p>
+                <strong>Wallet Balance</strong>
+                R<?= number_format($current_balance, 2) ?>
             </p>
         </div>
 
