@@ -84,7 +84,7 @@ $total_revenue = $conn->query("SELECT SUM(total_price) AS revenue FROM orders WH
                 Manage Orders
             </a>
             <a href="manage_sellers.php" class="admin-btn">
-                Manage sellers
+                Manage Sellers
             </a>
         </div>
     </div>

@@ -29,6 +29,15 @@ $user = $result->fetch_assoc();
 
 $balance = $user['balance'];
 
+// Getting the number of orders where status is pending or paid for the logged in user
+$order_stmt = $conn->prepare("SELECT COUNT(*) AS active_orders FROM orders WHERE user_id = ? AND status IN ('pending', 'paid')");
+$order_stmt->bind_param("i", $_SESSION['user_id']);
+$order_stmt->execute();
+
+// fetching the results of the query and storing in $active_orders variable
+$order_result = $order_stmt->get_result();
+$order_data = $order_result->fetch_assoc();
+$active_orders = $order_data['active_orders'];
 ?>
 
 <!DOCTYPE html>
@@ -176,7 +185,7 @@ $balance = $user['balance'];
         <div class="col-md-4">
             <div class="dashboard-card">
                 <h4>Orders</h4>
-                <p>0 Active Orders</p>
+                <p><?= htmlspecialchars($active_orders) ?> Active Orders</p>
             </div>
         </div>
 

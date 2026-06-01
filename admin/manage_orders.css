@@ -1,0 +1,83 @@
+body {
+    background: #1b1f24;
+    color: white;
+    font-family: Poppins, sans-serif;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px;
+}
+
+h1 {
+    color:#da70d6;
+    margin-bottom: 40px;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #24323d;
+    padding: 20px;
+    border-radius: 18px;
+    overflow-x: auto;
+}
+
+.orders-table th {
+    background: #da70d6;
+    color: white;
+    padding: 14px;
+    text-align: left;
+}
+
+.orders-table td {
+    padding: 14px;
+    color: white;
+    border-bottom: 1px solid #3a4b57;
+}
+
+.orders-table tr:hover {
+    background: rgba(255,255,255,0.03);
+}
+
+.status{
+    padding: 6px 12px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+}
+
+.edit-btn{
+    background: #198754;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.edit-btn:hover{
+    background: #157347;
+}
+
+.delete-btn{
+    background: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.delete-btn:hover{
+    background: #b02a37;
+}
+
+.back-btn {
+    background: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}

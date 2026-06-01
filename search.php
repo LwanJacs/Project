@@ -1,5 +1,5 @@
 <?php
-include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
+include 'database/db_connect.php';
 $query = "";
 $result = null;
 
@@ -7,7 +7,7 @@ if (isset($_GET['query'])) {
     $query = trim($_GET['query']);
 
     // Prepared statement (SAFELY handles user input)
-    $stmt = $conn->prepare("SELECT * FROM products WHERE name LIKE ? OR description LIKE ?");
+    $stmt = $conn->prepare("SELECT * FROM products WHERE prod_name LIKE ? OR description LIKE ?");
     $searchTerm = "%" . $query . "%";
 
     $stmt->bind_param("ss", $searchTerm, $searchTerm);
@@ -42,11 +42,11 @@ if (isset($_GET['query'])) {
                     <div class="col-md-4">
                         <div class="card product-card h-100">
                             
-                            <img src="<?= htmlspecialchars($row['image_url']) ?>" class="card-img-top" alt="<?= htmlspecialchars($row['name']) ?>">
+                            <img src="uploads/<?= htmlspecialchars($row['image']) ?>" class="card-img-top" alt="<?= htmlspecialchars($row['prod_name']) ?>">
                             
                             <div class="card-body">
                                 
-                                <h5 class="card-title"> <?= htmlspecialchars($row['name']) ?></h5>
+                                <h5 class="card-title"> <?= htmlspecialchars($row['prod_name']) ?></h5>
                                 <p class="card-text"> <?= htmlspecialchars($row['description']) ?> </p>
                                 <p class="card-text"><strong>Price:</strong> $<?= number_format($row['price'], 2) ?></p>
                             
