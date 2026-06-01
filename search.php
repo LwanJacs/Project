@@ -48,7 +48,7 @@ if (isset($_GET['query'])) {
                                 
                                 <h5 class="card-title"> <?= htmlspecialchars($row['prod_name']) ?></h5>
                                 <p class="card-text"> <?= htmlspecialchars($row['description']) ?> </p>
-                                <p class="card-text"><strong>Price:</strong> $<?= number_format($row['price'], 2) ?></p>
+                                <p class="card-text"><strong>Price:</strong> R<?= number_format($row['price'], 2) ?></p>
                             
                             </div>
                         </div>

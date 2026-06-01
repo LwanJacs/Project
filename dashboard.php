@@ -67,10 +67,12 @@ $active_orders = $order_data['active_orders'];
     </div>
     <?php endif; ?>
 
-    <nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
-        <a class="btn btn-outline-secondary mt-3 ms-3" href="index.php">← Home</a>
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+        
         <div class="container">
-            <a class="navbar-brand" href="#">Symphonic Contracts</a>
+            <a class="navbar-brand" href="#">
+                Symphonic Contracts
+            </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -80,13 +82,16 @@ $active_orders = $order_data['active_orders'];
 
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
+                        <a class="nav-link" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="browse.php">Browse</a>
                     </li>
 
                     <li class="nav-item">
                     <?php if (isset($_SESSION['is_seller']) && $_SESSION['is_seller']): ?>
                         <!--Already a seller, show dashboard link-->
-                        <a class="nav-link btn" href="seller_dashboard.php">
+                        <a class="nav-link" href="seller_dashboard.php">
                             My Store
                         </a>
                     <?php else: ?>
@@ -119,7 +124,7 @@ $active_orders = $order_data['active_orders'];
                 <!-- Account dropdown -->
                 <div class="d-flex my-2 my-lg-0">
 
-                    <div class="dropdown me-2">
+                    <div class="dropdown ms-auto">
 
                         <button class="btn btn-outline-light dropdown-toggle" 
                                 type="button" 
@@ -182,21 +187,21 @@ $active_orders = $order_data['active_orders'];
     <!--Dashboard Cards-->
     <div class="row g-4">
 
-        <div class="col-md-4">
+        <div class="col-12 col-md-6 col-lg-4">
             <div class="dashboard-card">
                 <h4>Orders</h4>
                 <p><?= htmlspecialchars($active_orders) ?> Active Orders</p>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-12 col-md-6 col-lg-4">
             <div class="dashboard-card">
                 <h4>Messages</h4>
                 <p>0 Unread Messages</p>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-12 col-md-6 col-lg-4">
             <div class="dashboard-card">
                 <h4>Balance</h4>
                 <p>R<?= number_format($balance, 2) ?></p>
