@@ -74,7 +74,8 @@ $active_orders = $order_data['active_orders'];
                 Symphonic Contracts
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!--Navigation links-->
@@ -138,7 +139,7 @@ $active_orders = $order_data['active_orders'];
                         <ul class="dropdown-menu dropdown-menu-end custom-dropdown"
                             aria-labelledby="accountDropdown">
                             <li>
-                                <a class="dropdown-item" href="coming_soon.php">
+                                <a class="dropdown-item" href="profile_page/profile.php">
                                     <i class="fa fa-user-circle"></i> My Profile
                                 </a>
                             </li>

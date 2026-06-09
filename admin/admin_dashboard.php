@@ -48,6 +48,11 @@ $total_revenue = $conn->query("SELECT SUM(total_price) AS revenue FROM orders WH
     <link rel="stylesheet" href="admin_style.css">
 </head>
 <body>
+    <div class="back-btn-container">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fa fa-arrow-left"></i>Back
+            </button>
+    </div>
     <div class="admin-container">
 
         <h1>Admin Dashboard</h1>
@@ -88,5 +93,7 @@ $total_revenue = $conn->query("SELECT SUM(total_price) AS revenue FROM orders WH
             </a>
         </div>
     </div>
+
+    <script src="../back_button.js"></script>
 </body>
 </html>
