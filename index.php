@@ -117,6 +117,11 @@ session_start();
                 &copy; <?= date('Y') ?> Symphonic Contracts. 
                 All rights reserved.
             </p>
+            <div class="footer-link">
+                <a href="about_us.php">About Us</a>
+                <span>|</span>
+                <a href="terms_conditions.php">Terms & Conditions</a>
+            </div>
         </div>
      </footer>
 <!-- Bootstrap JS Bundle (includes Popper)-->

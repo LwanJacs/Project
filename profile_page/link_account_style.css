@@ -1,0 +1,102 @@
+body {
+    background: #1b1f24;
+    font-family: Poppins, sans-serif;
+    color: white;
+    min-height: 100vh;
+}
+
+.accounts-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-btn,
+.add-btn {
+    background: rgba(255,255,255,0.08);
+
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    border: none;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.back-btn:hover,
+.add-btn:hover {
+    background: #da70d6;
+}
+
+h1 {
+    text-align: center;
+    color: #da70d6;
+    margin-bottom: 30px;
+}
+
+.account-card {
+    background: #24323d;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    margin-bottom: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.account-info h3 {
+    color: #da70d6;
+    margin-bottom: 5px;
+}
+
+.account-info p {
+    margin: 0;
+    color: #ccc;
+}
+
+.switch-btn {
+    background: #da70d6;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+.switch-btn:hover {
+    background: #c85ec4;
+}
+
+.current-badge {
+    background: #28a745;
+
+    padding: 8px 15px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}

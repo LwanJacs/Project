@@ -42,7 +42,7 @@ if (!$user) {
 <body>
     <div class="profile-container">
         <div class="profile-header">
-            <button class="back-btn" onclick="goBack()">
+            <button class="back-btn" onclick="goHome_2()">
                 <i class="fa fa-arrow-left"></i> Back
             </button>
             <h1>My Profile</h1>
@@ -96,6 +96,9 @@ if (!$user) {
 
             <a href="add_card.php" class="action-btn">
                 Add New Card
+            </a>
+            <a href="list_cards.php" class="action-btn">
+                View Your Cards
             </a>
         </div>
 

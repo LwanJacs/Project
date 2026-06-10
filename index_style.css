@@ -203,6 +203,33 @@ body {
     color: #ccc;
 }
 
+.footer {
+    background: #24323d;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+    color: #ccc;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #da70d6;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: #e0b0ff;
+}
+
+.footer-links span {
+    color: #888;
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 768px) {
