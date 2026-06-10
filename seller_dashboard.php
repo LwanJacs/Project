@@ -86,7 +86,7 @@ if ($result->num_rows > 0) {
                 My Products
             </a>
 
-            <a href="coming_soon.php" class="dashboard-btn">
+            <a href="seller_features/view_my_orders.php" class="dashboard-btn">
                 View Orders
             </a>
 

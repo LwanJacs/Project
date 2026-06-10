@@ -23,6 +23,21 @@ if (!$order) {
     die("Order not found.");
 }
 
+
+$card_stmt = $conn->prepare("SELECT * FROM payment_cards WHERE user_id = ? LIMIT 1");
+
+$card_stmt->bind_param("i", $user_id);
+$card_stmt->execute();
+
+$card_result = $card_stmt->get_result();
+$card = $card_result->fetch_assoc();
+
+if (!$card) {
+    $no_card = true;
+} else {
+    $no_card = false;
+}
+
 $total  = $order['total_price'];
 
 // Get user balance
@@ -49,8 +64,22 @@ if ($current_balance < $total) {
 //Handle payment submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    $password = $_POST['password'];
+
+    $pw_stmt = $conn->prepare("SELECT password FROM users WHERE user_id = ?");
+    $pw_stmt->bind_param("i", $user_id);
+    $pw_stmt->execute();
+
+    $pw_result =$pw_stmt->get_result();
+    $user_data = $pw_result->fetch_assoc();
+
+    if (!password_verify($password, $user_data['password'])) {
+        $error = "Incorrect password.";
+    } else {
+        // Continue payment
+    }
+
     // Deduct balance
-    
     $new_balance = $current_balance - $total;
     $update_balance = $conn->prepare("UPDATE users SET balance = ? WHERE user_id = ?");
     $update_balance->bind_param("di", $new_balance, $user_id);
@@ -106,31 +135,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 R<?= number_format($current_balance, 2) ?>
             </p>
         </div>
-
-        <form method="POST">
-            <div class="mb-3">
-                <label>Cardholder Name</label>
-                <input type="text" class="form-control" required>
+        <?php if ($no_card): ?>
+            <div class="alert alert-warning">
+                No payment methods found.
+            </div>
+            <a href="profile_page/add_card.php" class="btn btn-primary w-100">
+                Add Card
+            </a>
+        <?php else: ?>
+            <div class="saved-card">
+                <h5>
+                    <?= htmlspecialchars($card['card_type']) ?>
+                </h5>
+                <p>
+                    <?= htmlspecialchars($card['card_number']) ?>
+                </p>
+                <p>
+                    Expires:
+                    <?= htmlspecialchars($card['expiry_date']) ?>
+                </p>
             </div>
 
-            <div class="mb-3">
-                <label>Card Number</label>
-                <input type="text" class="form-control" maxlength="16" required>
-            </div>
+            <form method="POST">
+                
+                <div class="mb-3">
+                    <label>Confirm Account Password</label>
+                    <input type="password" name="password" class="form-control" required>
 
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label>Expiry Date</label>
-                    <input type="text" class="form-control" placeholder="MM/YY" required>
                 </div>
-
-                <div class="col-md-6 mb-3">
-                    <label>CVV</label>
-                    <input type="password" class="form-control" maxlength="3" required>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Pay Now</button>
-        </form>
+                <button type="submit" class="btn btn-success w-100">
+                    Pay R<?= number_format($total, 2) ?>
+                </button>
+            </form>
+        <?php endif; ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="back_button.js"></script>

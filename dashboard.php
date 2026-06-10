@@ -88,6 +88,13 @@ $active_orders = $order_data['active_orders'];
                     <li class="nav-item">
                         <a class="nav-link" href="browse.php">Browse</a>
                     </li>
+                    <li class="nav-item">
+                    <?php if(isset($_SESSION['user_id']) && $_SESSION['user_id']): ?>
+                        <a class="nav-link" href="cart.php">
+                            Cart
+                        </a>
+                    <?php endif; ?>
+                    </li>
 
                     <li class="nav-item">
                     <?php if (isset($_SESSION['is_seller']) && $_SESSION['is_seller']): ?>

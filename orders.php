@@ -46,7 +46,23 @@ $result = $stmt->get_result();
                     </p>
                     <p>
                         Status:
-                        <?= ucfirst($order['status']) ?>
+                        <?php if ($order['status'] == 'paid'): ?>
+                            <span class="status-badge status-paid">
+                                Paid
+                            </span>
+                        <?php elseif ($order['status'] == 'cancelled'): ?>
+                            <span class="status-badge status-cancelled">
+                                Cancelled
+                            </span>
+                        <?php elseif ($order['status'] == 'pending'): ?>
+                            <span class="status-badge status-pending">
+                                Pending
+                            </span>
+                        <?php else: ?>
+                            <span class="status-badge">
+                                <?= ucfirst($order['status']) ?>
+                            </span>
+                        <?php endif; ?>
                     </p>
                     <small class="d-fkex gap-2">
                         <?= $order['created_at'] ?>
@@ -58,8 +74,7 @@ $result = $stmt->get_result();
 
                         <!-- Cancel Order -->
                         <?php if (
-                            $order['status'] == 'pending' || 
-                            $order['status'] == 'paid'
+                            $order['status'] == 'pending'
                         ): ?>
                             <a href="cancel_order.php?order_id=<?= $order['order_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Cancel this order?')">Cancel Order</a>
 
