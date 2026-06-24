@@ -161,11 +161,6 @@ $active_orders = $order_data['active_orders'];
                                     <i class="fa fa-shopping-cart"></i> Cart
                                 </a>
                             </li>
-                            <li>
-                                <a class="dropdown-item" href="coming_soon.php">
-                                    <i class="fa fa-envelope"></i> Messages
-                                </a>
-                            </li>
 
                             <li><hr class="dropdown-divider"></li>
                             <li>
@@ -199,13 +194,6 @@ $active_orders = $order_data['active_orders'];
             <div class="dashboard-card">
                 <h4>Orders</h4>
                 <p><?= htmlspecialchars($active_orders) ?> Active Orders</p>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="dashboard-card">
-                <h4>Messages</h4>
-                <p>0 Unread Messages</p>
             </div>
         </div>
 

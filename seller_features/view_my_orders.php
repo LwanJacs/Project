@@ -6,8 +6,8 @@ include '../database/db_connect.php';
 $user_id = $_SESSION['user_id'];
 
 $sql = "SELECT orders.order_id, orders.created_at, orders.status, users.username, products.prod_name, order_items.quantity, order_items.price 
-        FROM order_items JOIN orders ON order_items.order_id = products.prod_id 
-        JOIN products ON order_items.prod_id = prdocuts.prod_id
+        FROM order_items JOIN orders ON order_items.order_id = orders.order_id 
+        JOIN products ON order_items.prod_id = products.prod_id
         JOIN users ON orders.user_id = users.user_id
         WHERE products.user_id = ? 
         AND orders.status = 'paid'
@@ -29,7 +29,7 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="view_my_orders_style.css">
 </head>
 <body>
-
+<div class="mt-3">
 <div class="container">
     <h1 class="page-title">Customer Orders</h1>
     <?php while($row = $result->fetch_assoc()): ?>
@@ -66,6 +66,7 @@ $result = $stmt->get_result();
         </div>
     <?php endwhile; ?>
 </div>
-    
+  
+<script src="../back_button.js"></script>
 </body>
 </html>
