@@ -9,7 +9,7 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !=1) {
 }
 
 // Fetch sellers with product count so that we can display in the table
-$sql = "SELECT sellers.seller_id, sellers.store_name, sellers.user_id, users.username, users.email, COUNT(products.prod_id) AS total_products FROM sellers JOIN users ON sellers.user_id = users.user_id LEFT JOIN products ON sellers.seller_id = products.user_id GROUP BY sellers.seller_id ORDER BY sellers.store_name ASC";
+$sql = "SELECT sellers.seller_id, sellers.store_name, sellers.user_id, users.username, users.email, COUNT(products.prod_id) AS total_products FROM sellers JOIN users ON sellers.user_id = users.user_id LEFT JOIN products ON sellers.user_id = products.user_id GROUP BY sellers.seller_id ORDER BY sellers.store_name ASC";
 $result = $conn->query($sql);
 
 ?>
@@ -63,10 +63,10 @@ $result = $conn->query($sql);
                     </td>
 
                     <td>
-                        <a href="seller_products_admin.php?id=<?= $seller['seller_id'] ?>" class="view-btn">
+                        <a href="seller_products_admin.php?user_id=<?= $seller['user_id'] ?>" class="view-btn">
                             View
                         </a>
-                        <a href="remove_seller_admin.php?id=<?= $seller['seller_id'] ?>" class="remove-btn" onclick="return confirm('Are you sure you want to remove seller privileges?')">
+                        <a href="remove_seller_admin.php?seller_id=<?= $seller['seller_id'] ?>" class="remove-btn" onclick="return confirm('Are you sure you want to remove seller privileges?')">
                             Delete
                         </a>
                     </td>
@@ -75,6 +75,7 @@ $result = $conn->query($sql);
 
             <?php endwhile; ?>
             </tbody>
+        </table>
     </div>
     
 </body>

@@ -49,7 +49,7 @@ $total_revenue = $conn->query("SELECT SUM(total_price) AS revenue FROM orders WH
 </head>
 <body>
     <div class="back-btn-container">
-            <button class="back-btn" onclick="goBack()">
+            <button class="back-btn" onclick="goHome_2()">
                 <i class="fa fa-arrow-left"></i>Back
             </button>
     </div>

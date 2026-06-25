@@ -52,7 +52,7 @@ $result = $stmt->get_result();
                     <p><?= htmlspecialchars($product['category']) ?></p>
 
                     <div class="actions">
-                        <a href="edit_product_admin.php?prod_id=<?= $product['prod_id'] ?>" class="edit-btn">
+                        <a href="admin_edit_products.php?prod_id=<?= $product['prod_id'] ?>" class="edit-btn">
                             Edit
                         </a>
                         <a href="delete_product_admin.php?prod_id=<?= $product['prod_id'] ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this product?');">

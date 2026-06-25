@@ -69,8 +69,8 @@ $result = $conn->query($sql);
                         </td>
 
                         <td>
-                            <a href="edit_order.php?id=<?= $order['order_id'] ?>" class="edit-btn">Edit</a>
-                            <a href="delete_order.php?id=<?= $order['order_id'] ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a>
+                            <a href="edit_order.php?order_id=<?= $order['order_id'] ?>" class="edit-btn">Edit</a>
+                            <a href="delete_order.php?order_id=<?= $order['order_id'] ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this order?')">Delete</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>

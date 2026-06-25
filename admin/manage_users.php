@@ -60,7 +60,7 @@ $result = $conn->query("SELECT user_id, name, surname, username, email, balance,
                                 <?= $user['is_admin'] ? 'Yes' : 'No' ?>
                             </td>
                             <td>
-                                <a href="delete_user.php?=<?= $user['user_id'] ?>" class="admin-btn delete-btn"
+                                <a href="admin_delete_user.php?user_id=<?= $user['user_id'] ?>" class="admin-btn delete-btn"
                                 onclick="return confirm('Delete this user?')">
                                 Delete
                                 </a>

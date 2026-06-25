@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../database/dbconnect.php';
+include '../database/db_connect.php';
 
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !=1) {
     exit("Access denied.");
