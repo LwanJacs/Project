@@ -12,6 +12,7 @@ if (!isset($_GET['order_id'])) {
     exit();
 }
 
+// Getting the current order and logged in user 
 $order_id = (int) $_GET['order_id'];
 $user_id = $_SESSION['user_id'];
 
@@ -33,7 +34,7 @@ if (!$order) {
 }
 
 
-// Get order items fro database
+// Get order items from database
 $items_stmt = $conn->prepare("SELECT order_items.*, products.prod_name, products.image FROM order_items JOIN products ON order_items.prod_id = products.prod_id WHERE order_items.order_id = ?");
 if (!$items_stmt) {
     die("Prepare failed: " . $conn->error);

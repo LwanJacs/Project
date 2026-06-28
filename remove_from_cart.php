@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include 'C:\xampp\htdocs\PHP\loginRegistrationSystem\database\db_connect.php';
+include 'database/db_connect.php';
 
 // Remove product from cart
 $id = $_GET['id'];
